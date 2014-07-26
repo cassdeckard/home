@@ -186,6 +186,12 @@ fi
 # if this is an interactive shell, set PS1 to something decent
 if [ "$PS1" ]; then
 
+   # Git completion stuff
+   GIT_PS1_SHOWDIRTYSTATE=1
+   GIT_PS1_SHOWSTASHSTATE=1
+   GIT_PS1_SHOWUNTRACKEDFILES=1
+   GIT_PS1_SHOWUPSTREAM=auto
+
    if declare -f __git_ps1 >/dev/null; then
       GIT_PS1='$(__git_ps1 "[%s]")'
    fi
