@@ -1,0 +1,6 @@
+# base screen settings in a separate file so we can source them 
+# without adding default screens
+source $HOME/.screenrc_base
+
+# default screens
+source $HOME/.screenrc_screens

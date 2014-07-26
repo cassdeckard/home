@@ -1,0 +1,16 @@
+
+###########
+# aliases #
+###########
+
+# source .bashrc
+alias .bash="source ~/.bashrc"
+
+# general application aliases
+alias screen='screen -R'
+if ls --help | grep group-directories-first > /dev/null
+then
+   alias ll="ls -l --color=auto --group-directories-first"
+else
+   alias ll="ls -l --color=auto"
+fi

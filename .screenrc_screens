@@ -1,0 +1,7 @@
+# vim: set filetype=screen:
+
+# Default screens
+screen 0
+
+# larger scrollback buffer
+scrollback 2048

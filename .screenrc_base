@@ -1,0 +1,17 @@
+# vim: set filetype=screen:
+
+# bindings
+bind q quit
+bind . source $HOME/.screenrc_base
+
+hardstatus alwayslastline
+hardstatus string '%{= Kg}[%H][ %{w}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%Y-%m-%d %{W}%c%{g}]'
+
+# Default title
+#shelltitle '$ |bash'
+
+# Make terminal redraw after exiting a fullscreen app (why this isn't the default is completely beyond me)
+altscreen on
+
+# enable multiuser mode
+multiuser on
