@@ -102,7 +102,7 @@ smiley () {
   return $STAT
 }
 
-export GROUP_DEFAULT=1024
+export GROUP_DEFAULT=1000
 #
 # prints current group on prompt, if it is not default
 #
