@@ -40,3 +40,5 @@
 	k = log --graph --oneline
 	st = status
 	pr = log --oneline --abbrev=10 --reverse
+	mnff = merge --no-ff
+	pushit = push -u origin HEAD
