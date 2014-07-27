@@ -158,9 +158,7 @@ map <leader>pl :! ls<CR>
 "   command to execute bash script
 map <leader>xb :exe "!git blame -M -L" . line('.') . ",+5 %"<CR>
 map <leader>xc :! colortest<CR>
-map <leader>xl :! svn log -l5 %<CR>
 map <leader>xm :! make<CR>
-map <leader>xt :! ctagsVISE<CR>
 map <leader>xx :! ./%<CR>
 map <leader>xX :! chmod -v +x ./%<CR>
 
