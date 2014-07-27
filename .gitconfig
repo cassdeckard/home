@@ -39,6 +39,7 @@
 	graph = log --graph --oneline --decorate
 	k = log --graph --oneline --decorate
 	ka = log --graph --oneline --decorate --all
+	up = log --graph --oneline --decorate @{u}~..HEAD
 	st = status
 	pr = log --oneline --abbrev=10 --reverse
 	mnff = merge --no-ff
