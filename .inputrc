@@ -1,0 +1,5 @@
+# Up
+"\e[A":history-search-backward
+# Down
+"\e[B":history-search-forward
+
