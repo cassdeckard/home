@@ -1,5 +1,7 @@
 " misc
 "set autochdir
+set nocompatible  " vim, not vi
+set modeline
 
 " make vim execute things in bash interactive prompt, to get aliases
 ":set shellcmdflag=-ic
