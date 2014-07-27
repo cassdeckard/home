@@ -19,6 +19,10 @@ set nu
 " autowrite
 set autowrite
 
+" listchars
+set listchars=trail:◃,nbsp:•,tab:»-,extends:…,precedes:…
+set list
+
 " color ?
 if &term =~ "xterm" || &term =~ "screen"
  set t_Co=256
