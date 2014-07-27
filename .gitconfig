@@ -42,3 +42,5 @@
 	pr = log --oneline --abbrev=10 --reverse
 	mnff = merge --no-ff
 	pushit = push -u origin HEAD
+[push]
+	default = simple
