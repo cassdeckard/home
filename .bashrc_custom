@@ -92,7 +92,7 @@ smiley () {
       135) SDISP="BUS" ;;
       136) SDISP="FPE" ;;
       137) SDISP="KILL" ;;
-      139) SDISP="SEG"; asdf ;;
+      139) SDISP="SEG" ;;
       141) SDISP="PIPE" ;;
       142) SDISP="ALRM" ;;
       143) SDISP="TERM" ;;
