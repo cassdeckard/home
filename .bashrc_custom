@@ -42,7 +42,10 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 ###########
 # aliases #
 ###########
-. ~/.bashrc_aliases
+if [ -f ~/.bashrc_aliases ]
+then
+   . ~/.bashrc_aliases
+fi
 
 #############
 # functions #
