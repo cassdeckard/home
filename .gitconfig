@@ -36,8 +36,9 @@
 	dcw = diff --color-words
 	dt = difftool -y
 	dtc = difftool -y --cached
-	graph = log --graph --oneline --decorate --date-order
-	k = log --graph --oneline
+	graph = log --graph --oneline --decorate
+	k = log --graph --oneline --decorate
+	ka = log --graph --oneline --decorate --all
 	st = status
 	pr = log --oneline --abbrev=10 --reverse
 	mnff = merge --no-ff
