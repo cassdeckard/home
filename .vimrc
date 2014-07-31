@@ -58,6 +58,10 @@ set ls=2
 highlight LongLines ctermbg=darkgrey guibg=darkgrey
 autocmd BufRead,BufNewFile * call matchadd("LongLines", '\%80v.\+', -1)
 
+" syntax
+filetype plugin indent on
+syntax on
+
 " special settings for different filetypes
 autocmd FileType python source ~/.vim/py.vim
 autocmd FileType c,cpp source ~/.vim/cpp.vim
