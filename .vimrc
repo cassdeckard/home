@@ -165,7 +165,7 @@ map <leader>xc :! colortest<CR>
 map <leader>xm :! make<CR>
 map <leader>xx :! ./%<CR>
 map <leader>xX :! chmod -v +x ./%<CR>
-map <leader>xt :! nosetests<CR>
+map <leader>xt :! nosetests3<CR>
 
 " edit specific filies
 map <leader>ev :e ~/.vimrc<CR>
