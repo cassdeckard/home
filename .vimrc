@@ -3,6 +3,9 @@
 set nocompatible  " vim, not vi
 set modeline
 
+" functions
+source ~/.vimrc_functions
+
 " make vim execute things in bash interactive prompt, to get aliases
 ":set shellcmdflag=-ic
 
@@ -88,6 +91,7 @@ set wildmode=longest,list,full
 map <C-j> <C-E>
 map <C-k> <C-Y>
 map <leader>a :call ArrowRemapToggle()<CR>
+call ArrowRemapOn() " comment out this line to turn off arrow remap by default
 
 """""""""""""
 "  MAPPINGS "
@@ -167,60 +171,3 @@ map <leader>ed :e %:p:h/
 map <leader>eh :e %:r.h<CR>
 map <leader>ec :e %:r.cpp<CR>
 map <leader>em :e %:p:h/CMakeLists.txt<CR>
-
-"""""""""""""""""""""
-" SPECIAL FUNCTIONS "
-"""""""""""""""""""""
-
-function! Alias(scriptname)
-   set shellcmdflag=-ic
-   exec '! ' . a:scriptname
-   set shellcmdflag=-c
-endfunction
-
-function! ColorTest()
-   let num = 255
-   while num >= 0
-       exec 'hi col_'.num.' ctermbg='.num.' ctermfg=white'
-       exec 'syn match col_'.num.' "ctermbg='.num.':...." containedIn=ALL'
-       call append(0, 'ctermbg='.num.':....')
-       let num = num - 1
-   endwhile
-endfunction
-
-let g:arrow_keys_remapped = 0
-function! ArrowRemapToggle()
-   if g:arrow_keys_remapped
-      call ArrowRemapOff()
-   else
-      call ArrowRemapOn()
-   endif
-endfunction
-
-function! ArrowRemapOn()
-   if &diff
-      set diffopt=filler,context:10000000 " effectively disable auto-fold
-      map <Up> [c
-      map <Down> ]c
-      map <Right> dp
-      map <Left> do
-      map <F5> :diffupdate<CR>
-   else
-      map <Up> <C-]>
-      map <Down> <C-T>
-      map <Right> :bn<CR>
-      map <Left> :bp<CR>
-      map <F5> :e<CR>
-   endif
-   let g:arrow_keys_remapped = 1
-endfunction
-
-function! ArrowRemapOff()
-   unmap <Up>
-   unmap <Down>
-   unmap <Right>
-   unmap <Left>
-   let g:arrow_keys_remapped = 0
-endfunction
-
-call ArrowRemapOn() " comment out this line to turn off arrow remap by default
