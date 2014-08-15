@@ -231,7 +231,7 @@ if [ "$PS1" ]; then
   # Note: Do not export PS1.  It is just for this shell, not its children.
 
   # also only set these if interactive shell
-  shopt -s cdspell  # sloppy dir spelling for cd
-  shopt -s dirspell # sloppy dir spelling for tab completion
+  shopt -s cdspell              # sloppy dir spelling for cd
+  shopt -s dirspell 2>/dev/null # sloppy dir spelling for tab completion
 
 fi
