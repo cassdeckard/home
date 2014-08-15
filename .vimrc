@@ -68,24 +68,13 @@ autocmd FileType c,cpp source ~/.vim/cpp.vim
 
 " tags
 set tags=./tags
-if &diff
-   set diffopt=filler,context:10000000 " effectively disable auto-fold
-   map <Up> [c
-   map <Down> ]c
-   map <Right> dp
-   map <Left> do
-   map <F5> :diffupdate<CR>
-else
-   map <Up> <C-]>
-   map <Down> <C-T>
-   map <Right> :bn<CR>
-   map <Left> :bp<CR>
-   map <F5> :e<CR>
-endif
 map <leader>t :tag 
 map <leader>t<space> :tag 
 
 " diff
+if &diff
+   set diffopt=filler,context:10000000 " effectively disable auto-fold
+endif
 "com! DiffSaved call s:DiffWithSaved()
 "map <leader>df :DiffSaved<CR>
 "com! DiffSVN call s:DiffWithSVNCheckedOut()
@@ -98,6 +87,7 @@ set wildmode=longest,list,full
 " movement
 map <C-j> <C-E>
 map <C-k> <C-Y>
+map <leader>a :call ArrowRemapToggle()<CR>
 
 """""""""""""
 "  MAPPINGS "
@@ -197,3 +187,40 @@ function! ColorTest()
        let num = num - 1
    endwhile
 endfunction
+
+let g:arrow_keys_remapped = 0
+function! ArrowRemapToggle()
+   if g:arrow_keys_remapped
+      call ArrowRemapOff()
+   else
+      call ArrowRemapOn()
+   endif
+endfunction
+
+function! ArrowRemapOn()
+   if &diff
+      set diffopt=filler,context:10000000 " effectively disable auto-fold
+      map <Up> [c
+      map <Down> ]c
+      map <Right> dp
+      map <Left> do
+      map <F5> :diffupdate<CR>
+   else
+      map <Up> <C-]>
+      map <Down> <C-T>
+      map <Right> :bn<CR>
+      map <Left> :bp<CR>
+      map <F5> :e<CR>
+   endif
+   let g:arrow_keys_remapped = 1
+endfunction
+
+function! ArrowRemapOff()
+   unmap <Up>
+   unmap <Down>
+   unmap <Right>
+   unmap <Left>
+   let g:arrow_keys_remapped = 0
+endfunction
+
+call ArrowRemapOn() " comment out this line to turn off arrow remap by default
