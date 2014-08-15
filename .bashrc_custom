@@ -57,9 +57,9 @@ fi
 smileyc () {
   STAT=$?
   if [ $STAT = 0 ]; then
-    echo -e '\e[32m'
+    echo -e '\033[32m'
   else
-    echo -e '\e[0m'
+    echo -e '\033[0m'
   fi
   return $STAT
 }
@@ -142,7 +142,7 @@ screen_title() {
 
    if [ "$TITLE" ]
    then
-      $ECHOCMD "\ek${TITLE}\e\\"
+      $ECHOCMD "\033k${TITLE}\033\\"
       return
    fi
 
@@ -162,12 +162,12 @@ screen_title() {
    if [ "$SSH_TTY" ] && [ ! "$STY" ]
    then
       # we are in non-screen SSH session, set title to hostname
-      $ECHOCMD "\ek${CWD}@${HOSTNAME%%.*}\e\\"
+      $ECHOCMD "\033k${CWD}@${HOSTNAME%%.*}\033\\"
       return
    fi
 
    # default, echo basename of CWD
-   $ECHOCMD "\ek${CWD}\e\\"
+   $ECHOCMD "\033k${CWD}\033\\"
 }
 
 ##########
