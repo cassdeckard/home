@@ -1,5 +1,10 @@
 # vim: set filetype=screen:
 
+# use xterm title bar as hardstatus
+termcapinfo xterm*|rxvt*|kterm*|Eterm* 'hs:ts=\E]0;:fs=\007:ds=\E]0;\007'
+defhstatus "screen ^E (^Et) | $USER@^EH"
+hardstatus off
+
 # bindings
 bind q quit
 bind . source $HOME/.screenrc_base
