@@ -6,6 +6,9 @@ set modeline
 " functions
 source ~/.vimrc_functions
 
+" Vundle
+source ~/.vimrc_vundle
+
 " make vim execute things in bash interactive prompt, to get aliases
 ":set shellcmdflag=-ic
 
