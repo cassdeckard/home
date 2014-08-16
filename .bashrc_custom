@@ -201,7 +201,7 @@ if [ "$PS1" ]; then
 
    # my default red prompt
    PS1=
-   #PS1="$PS1"'\[\ek\e\\\]'                      # <esc>k<esc> for screen's dynamic prompt feature
+   PS1="$PS1\n"                                  # newline
    PS1="$PS1$pscolor"                            # pscolor
    PS1="$PS1"'[\j]'                              # jobs
    PS1="$PS1"'[\[`smileyc`\]'                    # [ GREEN | GREY
