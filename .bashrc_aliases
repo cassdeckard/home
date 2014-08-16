@@ -11,14 +11,14 @@ alias screen='screen -R'
 
 ## ls options are hard
 LL="ls -l"
-if ls --color 2>/dev/null
+if ls --color 2>/dev/null >&2
 then
    LL="$LL --color=auto"
-   if ls --group-directories-first 2>/dev/null
+   if ls --group-directories-first 2>/dev/null >&2
    then
       LL="$LL --group-directories-first"
    fi
-elif ls -G 2>/dev/null
+elif ls -G 2>/dev/null >&2
 then
    LL="$LL -G"
 fi
