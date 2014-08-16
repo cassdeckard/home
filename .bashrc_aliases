@@ -8,9 +8,18 @@ alias .bash="source ~/.bashrc"
 
 # general application aliases
 alias screen='screen -R'
-if ls --help | grep group-directories-first > /dev/null
+
+## ls options are hard
+LL="ls -l"
+if ls --color 2>/dev/null
 then
-   alias ll="ls -l --color=auto --group-directories-first"
-else
-   alias ll="ls -l --color=auto"
+   LL="$LL --color=auto"
+   if ls --group-directories-first 2>/dev/null
+   then
+      LL="$LL --group-directories-first"
+   fi
+elif ls -G 2>/dev/null
+then
+   LL="$LL -G"
 fi
+alias ll="$LL"
