@@ -45,5 +45,8 @@
 	mnff = merge --no-ff
 	pushit = push -u origin HEAD
 	ds = diff --stat
+	pu = log --graph --oneline --decorate HEAD~..@{u}
+	msg = !exec cat .git/COMMIT_EDITMSG
+	mmsg = !exec cat .git/MERGE_MSG
 [push]
 	default = simple
