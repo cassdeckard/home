@@ -28,12 +28,15 @@
 [alias]
 	ap = add -p
 	br = branch
+	brcl = !git branch | grep -v \\* | xargs git branch -d
 	co = checkout
+	com = !sh -c 'git checkout feature/MOBILE-$1' -
 	cv = commit -v
 	d = diff
 	dc = diff --cached
 	dccw = diff --cached --color-words
 	dcw = diff --color-words
+	ds = diff --stat
 	dt = difftool -y
 	dtc = difftool -y --cached
 	graph = log --graph --oneline --decorate
