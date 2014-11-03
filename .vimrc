@@ -81,10 +81,6 @@ map <leader>t<space> :tag
 if &diff
    set diffopt=filler,context:10000000 " effectively disable auto-fold
 endif
-"com! DiffSaved call s:DiffWithSaved()
-"map <leader>df :DiffSaved<CR>
-"com! DiffSVN call s:DiffWithSVNCheckedOut()
-"map <leader>ds :DiffSVN<CR>
 map <leader>dx :diffoff<CR>:q<CR>
 
 " tab completion
@@ -101,7 +97,7 @@ call ArrowRemapOn() " comment out this line to turn off arrow remap by default
 """""""""""""
 
 " misc
-noremap <space> <PageDown>
+noremap <Space> <PageDown>
 noremap <C-?> <PageUp>
 map <PageDown> :cn<CR>
 map <PageUp> :cp<CR>
