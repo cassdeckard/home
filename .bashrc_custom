@@ -170,6 +170,12 @@ screen_title() {
    $ECHOCMD "\033k${CWD}\033\\"
 }
 
+git_ps1_wrap() {
+   if declare -f __git_ps1 >/dev/null; then
+      __git_ps1 "[%s]"
+   fi
+}
+
 ##########
 # prompt #
 ##########
@@ -195,10 +201,6 @@ if [ "$PS1" ]; then
    GIT_PS1_SHOWUNTRACKEDFILES=1
    GIT_PS1_SHOWUPSTREAM=auto
 
-   if declare -f __git_ps1 >/dev/null; then
-      GIT_PS1='$(__git_ps1 "[%s]")'
-   fi
-
    # my default red prompt
    PS1=
    PS1="$PS1\n"                                  # newline
@@ -211,7 +213,7 @@ if [ "$PS1" ]; then
    PS1="$PS1"'`psgroup`'                         # [group] (if not default)
    PS1="$PS1"'`psumask`'                         # [umask] (if not default)
    PS1="$PS1$pscolor"                            # pscolor
-   PS1="$PS1$yellow$GIT_PS1$pscolor"             # [GIT_BRANCH]
+   PS1="$PS1$yellow"'$(git_ps1_wrap)'"$pscolor"  # [GIT_BRANCH]
    PS1="$PS1"'\u@\h:\W \$'                       # user@host:dir $
    PS1="$PS1"'\[\e[0m\] '                        # GREY
 
