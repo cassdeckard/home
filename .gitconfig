@@ -63,5 +63,5 @@
 	prompt = false
 [difftool "bc3"]
 	trustExitCode = true
-[mergetool]
-	bc3 = trustExitCode
+[mergetool "bc3"]
+	trustExitCode = true
