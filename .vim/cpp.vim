@@ -9,4 +9,4 @@ set et
 
 " Display all tabs as bad
 highlight BadWhitespace ctermbg=red guibg=red
-call matchadd("BadWhitespace", "\t")
+"call matchadd("BadWhitespace", "\t")

@@ -14,8 +14,8 @@ Plugin 'gmarik/Vundle.vim'
 " My bundles here:
 "
 " original repos on GitHub
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'tpope/vim-fugitive'
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'tpope/vim-fugitive'
 Plugin 'Lokaltog/vim-easymotion'
 " vim-scripts repos
 "Plugin 'L9'

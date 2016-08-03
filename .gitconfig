@@ -20,6 +20,8 @@
 	renames = copy
 	renameLimit = 20000
 	mnemonicprefix = true
+	wordregex = [^[:space:]]|([[:upper:][:digit:]]|UTF_8_GUARD)*([[:lower:][:digit:]]|UTF_8_GUARD)+
+	tool = bc3
 [pretty]
 	info = format:%C(yellow)%h%C(reset) %C(blue)%ad%C(reset) %C(green)%an%C(reset)%C(red)%d%C(reset) %s
 [user]
@@ -51,5 +53,15 @@
 	pu = log --graph --oneline --decorate HEAD~..@{u}
 	msg = !exec cat .git/COMMIT_EDITMSG
 	mmsg = !exec cat .git/MERGE_MSG
+	bc = difftool --dir-diff
 [push]
 	default = simple
+[merge]
+	conflictstyle = diff3
+	tool = bc3
+[difftool]
+	prompt = false
+[difftool "bc3"]
+	trustExitCode = true
+[mergetool]
+	bc3 = trustExitCode

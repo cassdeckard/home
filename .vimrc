@@ -9,6 +9,9 @@ source ~/.vimrc_functions
 " Vundle
 source ~/.vimrc_vundle
 
+" YouCompleteMe
+let g:ycm_global_ycm_extra_conf = '/Users/matt.deckard/deckard-home/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
 " make vim execute things in bash interactive prompt, to get aliases
 ":set shellcmdflag=-ic
 
@@ -26,7 +29,7 @@ set nu
 set autowrite
 
 " listchars
-set listchars=trail:◃,nbsp:•,tab:»-,extends:…,precedes:…
+set listchars=trail:◃,nbsp:•,tab:\ \ ,extends:…,precedes:…
 set list
 
 " color ?
@@ -73,7 +76,7 @@ autocmd FileType python source ~/.vim/py.vim
 autocmd FileType c,cpp source ~/.vim/cpp.vim
 
 " tags
-set tags=./tags
+set tags=tags;/
 map <leader>t :tag 
 map <leader>t<space> :tag 
 
@@ -92,13 +95,26 @@ map <C-k> <C-Y>
 map <leader>a :call ArrowRemapToggle()<CR>
 call ArrowRemapOn() " comment out this line to turn off arrow remap by default
 
+" clang-complete
+let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang'
+let g:clang_use_library=1
+let g:clang_periodic_quickfix=1
+
 """""""""""""
 "  MAPPINGS "
 """""""""""""
 
+" command-t
+map <leader><Space> :CommandT<CR>
+let g:CommandTBackspaceMap='<C-?>'
+
+" easymotion
+map <leader>f <Plug>(easymotion-prefix)
+
 " misc
 noremap <Space> <PageDown>
 noremap <C-?> <PageUp>
+inoremap qq <Esc>
 map <PageDown> :cn<CR>
 map <PageUp> :cp<CR>
 map <leader>\ :let @/ = ""<CR>
