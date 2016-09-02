@@ -24,9 +24,6 @@
 	tool = bc3
 [pretty]
 	info = format:%C(yellow)%h%C(reset) %C(blue)%ad%C(reset) %C(green)%an%C(reset)%C(red)%d%C(reset) %s
-[user]
-	name = Matt Deckard
-	email = matthew.d.deckard@gmail.com
 [alias]
 	ap = add -p
 	br = branch
@@ -53,7 +50,7 @@
 	pu = log --graph --oneline --decorate HEAD~..@{u}
 	msg = !exec cat .git/COMMIT_EDITMSG
 	mmsg = !exec cat .git/MERGE_MSG
-	bc = difftool --dir-diff
+	bc = difftool --dir-diff --no-symlink
 [push]
 	default = simple
 [merge]

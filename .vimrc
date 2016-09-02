@@ -6,12 +6,6 @@ set modeline
 " functions
 source ~/.vimrc_functions
 
-" Vundle
-source ~/.vimrc_vundle
-
-" YouCompleteMe
-let g:ycm_global_ycm_extra_conf = '/Users/matt.deckard/deckard-home/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-
 " make vim execute things in bash interactive prompt, to get aliases
 ":set shellcmdflag=-ic
 
