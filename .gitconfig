@@ -51,6 +51,7 @@
 	msg = !exec cat .git/COMMIT_EDITMSG
 	mmsg = !exec cat .git/MERGE_MSG
 	bc = difftool --dir-diff --no-symlink
+ 	push-to-testing = push -f origin head:testing
 [push]
 	default = simple
 [merge]
