@@ -28,6 +28,7 @@
 	ap = add -p
 	br = branch
 	brcl = !git branch | grep -v \\* | xargs git branch -d
+	brcld = !git branch | grep -v \\* | xargs git branch -D
 	co = checkout
 	com = !sh -c 'git checkout feature/MOBILE-$1' -
 	cv = commit -v
