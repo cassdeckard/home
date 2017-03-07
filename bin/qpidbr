@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+repolist=(emp_swift qpid*)
+
 FETCH=false
 GITK=false
 while [ -n "$1" ]
@@ -32,7 +34,7 @@ then
    exit 1
 fi
 
-for repo in qpid*
+for repo in "${repolist[@]}"
 do
    $FETCH && (cd $repo && git fetch) >/dev/null
    ls $repo/.git/refs/remotes/origin/$branch 2>/dev/null || continue
