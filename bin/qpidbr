@@ -1,13 +1,22 @@
 #!/bin/bash
 
 FETCH=false
-if [ "$2" == "fetch" ]
+if [ "$1" == "fetch" ]
 then
    FETCH=true
+   shift
+fi
+
+GITK=false
+if [ "$1" == "gitk" ]
+then
+   GITK=true
+   shift
 fi
 
 for repo in qpid*
 do
    $FETCH && (cd $repo && git fetch) >/dev/null
-   ls $repo/.git/refs/remotes/origin/$1 2>/dev/null
+   ls $repo/.git/refs/remotes/origin/$1 2>/dev/null || continue
+   $GITK && (cd $repo && gitk origin/$1 &)
 done
