@@ -3,7 +3,9 @@
 
 # but don't ignore stuff that seems like config files or custom scripts
 !bin/
+!bin/**
 !.vim/
+!.vim/**
 !.gitignore
 !.*rc*
 !.*config*
@@ -11,3 +13,4 @@
 # except these specific ones
 .bashrc
 .dmrc
+.netrwhist

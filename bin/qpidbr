@@ -1,0 +1,13 @@
+#!/bin/bash
+
+FETCH=false
+if [ "$2" == "fetch" ]
+then
+   FETCH=true
+fi
+
+for repo in qpid*
+do
+   $FETCH && (cd $repo && git fetch) >/dev/null
+   ls $repo/.git/refs/remotes/origin/$1 2>/dev/null
+done
