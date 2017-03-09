@@ -40,3 +40,5 @@ do
    ls $repo/.git/refs/remotes/origin/$branch 2>/dev/null || continue
    $GITK && (cd $repo && gitk origin/$branch &)
 done
+
+exit 0
