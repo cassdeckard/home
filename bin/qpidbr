@@ -36,9 +36,14 @@ fi
 
 for repo in "${repolist[@]}"
 do
-   $FETCH && (cd $repo && git fetch) >/dev/null
-   ls $repo/.git/refs/remotes/origin/$branch 2>/dev/null || continue
-   $GITK && (cd $repo && gitk origin/$branch &)
+   pushd $repo >/dev/null
+   $FETCH && git fetch >/dev/null
+   if git show-ref origin/$branch >/dev/null 2>&1
+   then
+      echo $repo
+      $GITK && gitk origin/$branch &
+   fi
+   popd >/dev/null
 done
 
 exit 0
