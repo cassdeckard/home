@@ -108,6 +108,13 @@ smiley () {
   return $STAT
 }
 
+#
+# prints indication on prompt if asciinema is recording
+#
+psasciinema() {
+   [ -n "$ASCIINEMA_REC" ] && echo -n "[REC]"
+}
+
 export GROUP_DEFAULT=1000
 #
 # prints current group on prompt, if it is not default
@@ -185,6 +192,7 @@ git_ps1_wrap() {
 yellow='\[\e[33m\]'
 red='\[\e[31m\]'
 magenta='\[\e[35m\]'
+white='\[\e[37m\]'
 # set prompt to magenta if in non-screen ssh
 if [ "$SSH_TTY" ] && [ ! "$STY" ]
 then
@@ -213,6 +221,7 @@ if [ "$PS1" ]; then
    PS1="$PS1"'`smiley`'                          # :) | :(
    PS1="$PS1$pscolor"']'                         # pscolor ]
    PS1="$PS1$psalt"                              # psalt
+   PS1="$PS1$white"'`psasciinema`'"$pscolor"     # [REC] (if asciinema recording)
    PS1="$PS1"'`psgroup`'                         # [group] (if not default)
    PS1="$PS1"'`psumask`'                         # [umask] (if not default)
    PS1="$PS1$pscolor"                            # pscolor
