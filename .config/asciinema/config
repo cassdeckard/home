@@ -1,0 +1,6 @@
+[api]
+token = 3b2710e3-ac93-4593-8593-015f484316a4
+
+[record]
+command = /bin/bash -l
+maxwait = 2
