@@ -65,3 +65,6 @@
 	trustExitCode = true
 [mergetool "bc3"]
 	trustExitCode = true
+[user]
+	email = matt.deckard@asynchrony.com
+	name = Matt Deckard
