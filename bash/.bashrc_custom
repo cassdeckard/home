@@ -39,6 +39,9 @@ export LESS_TERMCAP_so=$'\E[38;5;246m' # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m' # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
+# java
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home
+
 ###########
 # aliases #
 ###########
@@ -103,6 +106,13 @@ smiley () {
     echo "$SDISP"
   fi
   return $STAT
+}
+
+#
+# prints indication on prompt if asciinema is recording
+#
+psasciinema() {
+   [ -n "$ASCIINEMA_REC" ] && echo -n "[REC]"
 }
 
 export GROUP_DEFAULT=1000
@@ -179,13 +189,22 @@ git_ps1_wrap() {
 ##########
 # prompt #
 ##########
-yellow='\[\e[33m\]'
 red='\[\e[31m\]'
+green='\[\e[32m\]'
 magenta='\[\e[35m\]'
+yellow='\[\e[33m\]'
+white='\[\e[37m\]'
+
 # set prompt to magenta if in non-screen ssh
+pscore='\u@\h:\W \$'
 if [ "$SSH_TTY" ] && [ ! "$STY" ]
 then
    pscolor=$magenta
+   psalt=$red
+elif [ -n "$ASCIINEMA_REC" ]
+then
+   pscore='\W \$'
+   pscolor=$green
    psalt=$red
 else
    pscolor=$red
@@ -210,11 +229,12 @@ if [ "$PS1" ]; then
    PS1="$PS1"'`smiley`'                          # :) | :(
    PS1="$PS1$pscolor"']'                         # pscolor ]
    PS1="$PS1$psalt"                              # psalt
+   PS1="$PS1$white"'`psasciinema`'"$pscolor"     # [REC] (if asciinema recording)
    PS1="$PS1"'`psgroup`'                         # [group] (if not default)
    PS1="$PS1"'`psumask`'                         # [umask] (if not default)
    PS1="$PS1$pscolor"                            # pscolor
    PS1="$PS1$yellow"'$(git_ps1_wrap)'"$pscolor"  # [GIT_BRANCH]
-   PS1="$PS1"'\u@\h:\W \$'                       # user@host:dir $
+   PS1="$PS1$pscore"                             # user@host:dir $
    PS1="$PS1"'\[\e[0m\] '                        # GREY
 
   case $TERM in

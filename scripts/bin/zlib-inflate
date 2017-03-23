@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+
+import zlib, sys
+
+print(repr(zlib.decompress(sys.stdin.read())))

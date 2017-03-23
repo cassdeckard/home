@@ -24,13 +24,11 @@
 	tool = bc3
 [pretty]
 	info = format:%C(yellow)%h%C(reset) %C(blue)%ad%C(reset) %C(green)%an%C(reset)%C(red)%d%C(reset) %s
-[user]
-	name = Matt Deckard
-	email = matthew.d.deckard@gmail.com
 [alias]
 	ap = add -p
 	br = branch
 	brcl = !git branch | grep -v \\* | xargs git branch -d
+	brcld = !git branch | grep -v \\* | xargs git branch -D
 	co = checkout
 	com = !sh -c 'git checkout feature/MOBILE-$1' -
 	cv = commit -v
@@ -41,6 +39,7 @@
 	ds = diff --stat
 	dt = difftool -y
 	dtc = difftool -y --cached
+   go = "!sh -c 'git fetch; git checkout $1; git reset --hard origin/$1' -"
 	graph = log --graph --oneline --decorate
 	k = log --graph --oneline --decorate
 	ka = log --graph --oneline --decorate --all
@@ -53,7 +52,8 @@
 	pu = log --graph --oneline --decorate HEAD~..@{u}
 	msg = !exec cat .git/COMMIT_EDITMSG
 	mmsg = !exec cat .git/MERGE_MSG
-	bc = difftool --dir-diff
+	bc = difftool --dir-diff --no-symlink
+ 	push-to-testing = push -f origin head:testing
 [push]
 	default = simple
 [merge]
@@ -65,3 +65,6 @@
 	trustExitCode = true
 [mergetool "bc3"]
 	trustExitCode = true
+[user]
+	email = matt.deckard@asynchrony.com
+	name = Matt Deckard

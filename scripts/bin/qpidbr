@@ -1,0 +1,49 @@
+#!/bin/bash -e
+
+repolist=(emp_swift qpid*)
+
+FETCH=false
+GITK=false
+while [ -n "$1" ]
+do
+   cmd=$1
+   shift
+   case $cmd in
+      "fetch")
+         FETCH=true
+         ;;
+      "gitk")
+         GITK=true
+         ;;
+      *)
+         branch=$cmd
+         break
+         ;;
+   esac
+done
+
+if [ -n "$1" ]
+then
+   echo "Multiple branches or unrecognized commands found" >&2
+   exit 1
+fi
+
+if [ -z "$branch" ]
+then
+   echo "No branch specified" >&2
+   exit 1
+fi
+
+for repo in "${repolist[@]}"
+do
+   pushd $repo >/dev/null
+   $FETCH && git fetch >/dev/null
+   if git show-ref origin/$branch >/dev/null 2>&1
+   then
+      echo $repo
+      $GITK && gitk origin/$branch &
+   fi
+   popd >/dev/null
+done
+
+exit 0
