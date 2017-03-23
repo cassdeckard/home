@@ -189,14 +189,22 @@ git_ps1_wrap() {
 ##########
 # prompt #
 ##########
-yellow='\[\e[33m\]'
 red='\[\e[31m\]'
+green='\[\e[32m\]'
 magenta='\[\e[35m\]'
+yellow='\[\e[33m\]'
 white='\[\e[37m\]'
+
 # set prompt to magenta if in non-screen ssh
+pscore='\u@\h:\W \$'
 if [ "$SSH_TTY" ] && [ ! "$STY" ]
 then
    pscolor=$magenta
+   psalt=$red
+elif [ -n "$ASCIINEMA_REC" ]
+then
+   pscore='\W \$'
+   pscolor=$green
    psalt=$red
 else
    pscolor=$red
@@ -226,7 +234,7 @@ if [ "$PS1" ]; then
    PS1="$PS1"'`psumask`'                         # [umask] (if not default)
    PS1="$PS1$pscolor"                            # pscolor
    PS1="$PS1$yellow"'$(git_ps1_wrap)'"$pscolor"  # [GIT_BRANCH]
-   PS1="$PS1"'\u@\h:\W \$'                       # user@host:dir $
+   PS1="$PS1$pscore"                             # user@host:dir $
    PS1="$PS1"'\[\e[0m\] '                        # GREY
 
   case $TERM in
