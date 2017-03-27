@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo -ne '\033['
+if [ "$1" == "-r" ]
+then
+   echo -ne '18t' && IFS=';' read -n999 -dt -t1 -s csi height width
+   echo "$height,$width"
+   exit 0
+fi
+
+echo -e "8;${1};${2}t"

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sed -e 's/\\u001b\[6n//g' -e 's/\\u001b\[>c//g' -i '' $1

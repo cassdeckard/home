@@ -1,0 +1,39 @@
+#!/bin/bash -x
+
+termsize() {
+	echo -ne "\033[8;${1};${2}t"
+}
+
+asciicast=$1
+
+orig_height=0
+orig_width=0
+height=0
+width=0
+echo -ne '\033[18t' && IFS=';' read -n999 -dt -t1 -s csi orig_height orig_width
+
+if [ "$orig_height" -eq 0 -o "$orig_width" -eq 0 ]
+then
+   echo "ERROR: Could not read your terminal dimensions" >&2
+   exit 1
+fi
+
+read -d"\000" pyscript <<HERE
+import sys,json
+json=json.load(sys.stdin)
+print("{0},{1}".format(json['height'], json['width']))
+HERE
+IFS=',' read height width < <(python -c "$pyscript" < $asciicast)
+
+if [ "$height" -eq 0 -o "$width" -eq 0 ]
+then
+   echo "ERROR: Could not read terminal dimensions of asciicast" >&2
+   exit 1
+fi
+
+termsize $height $width
+
+sleep 1
+asciinema play "$asciicast"
+
+termsize $orig_height $orig_width
