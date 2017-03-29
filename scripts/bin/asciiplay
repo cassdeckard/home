@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 termsize() {
 	echo -ne "\033[8;${1};${2}t"
@@ -32,6 +32,7 @@ then
 fi
 
 termsize $height $width
+clear
 
 sleep 1
 asciinema play "$asciicast"
