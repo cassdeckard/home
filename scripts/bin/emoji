@@ -3124,10 +3124,25 @@ Couple With Heart - Woman: Medium-Light Skin Tone, Woman: Medium-Light Skin Tone
 Tag Digit Five	print u'\\\\U000E0035'
 HERE
 
-if [ -z "$1" ]
+##### ACTUAL SCRIPT #####
+
+grepargs=( -i )
+while [ -n "$1" ]
+do
+   temp=$1
+   shift
+   if [ -n "$1" ]
+   then
+      grepargs[${#grepargs[*]}]=$temp
+   else
+      needle=$temp
+   fi
+done
+
+if [ -z "$needle" ]
 then
-	echo "Need an argument!" 1>&2
+	echo "Need at least one argument!" 1>&2
    exit 1
 fi
-needle=$1
-grep -i "$needle" <<<"$emoji_table" | awk -F"\t" '{ print $2 }' | python
+
+grep "${grepargs[@]}" "$needle" <<<"$emoji_table" | awk -F"\t" '{ print $2 }' | python
