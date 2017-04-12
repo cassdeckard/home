@@ -1,0 +1,101 @@
+#!/bin/bash -eu
+
+set -o pipefail
+
+getopt_cmd=/usr/local/opt/gnu-getopt/bin/getopt
+openssl_cmd=$(brew --cellar)/openssl/1.0.2k/bin/openssl
+
+error() {
+   echo "$2" 1>&2
+   exit $1
+}
+
+### Check Dependencies
+
+if [[ ! -x $getopt_cmd ]]
+then
+   error 3 "Missing gnu-getopt. Run 'brew install gnu-getopt' to install."
+fi
+if [[ ! -x "$openssl_cmd" ]]
+then
+   error 3 "Missing openssl 1.0.2k. Run 'brew install openssl' to install."
+fi
+if which json-minify >/dev/null
+then
+   :
+else
+   error 3 "Missing json-minify. Run 'npm install -g json-minify' to install."
+fi
+
+### Read Arguments
+
+short=s:u:p:
+long=secret:,username:,post-to:
+
+parsed=$($getopt_cmd --options $short --longoptions $long --name $0 -- "$@")
+if [[ $? -ne 0 ]]
+then
+   exit 2
+fi
+eval set -- "$parsed"
+
+while true
+do
+   case "$1" in
+      -s|--secret)
+         secret64="$2"
+         shift 2
+         ;;
+      -u|--username)
+         username="$2"
+         shift 2
+         ;;
+      -p|--post-to)
+         post_to="$2"
+         shift 2
+         ;;
+      --)
+         shift
+         break
+         ;;
+      *)
+         echo "There is something wrong with this script. Blame Deckard"
+         exit 42
+         ;;
+   esac
+done
+
+### Prompt for missing, required args
+
+if [[ -z "${secret64-}" ]]
+then
+   read -p "secret (base64): " secret64
+fi
+if [[ -z ${username-} ]]
+then
+   read -p "username: " username
+fi
+
+### Generate the JWT
+
+secret0x=$(base64 -D <<<"$secret64" | xxd -p | tr -d '\n')
+iss=Y2lzY29zcGFyazovL3VzL09SR0FOSVpBVElPTi9kMTZlYWI4MC1hYWNhLTQxZGItOThjNS0wZmU4ZGRiMDg0NGQ
+
+#header='{"typ":"JWT","alg":"HS256"}'
+header64=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+
+payload='{"sub":"'"$username"'","iss":"'$iss'"}'
+payload64=$(json-minify <<<"$payload" | tr -d '\n' | base64 | tr -d '=')
+
+sig64=$(echo -n "$header64.$payload64" | "$openssl_cmd" dgst -sha256 -mac HMAC -macopt "hexkey:$secret0x" -binary | base64 | tr -d '=')
+
+jwt="$header64.$payload64.$sig64"
+
+### Echo or POST the JWT
+
+if [[ -n "${post_to-}" ]]
+then
+   curl -XPOST -H"Authorization: $jwt" "$post_to"
+else
+   echo -n "$jwt"
+fi
