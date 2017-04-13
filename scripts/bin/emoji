@@ -3151,7 +3151,9 @@ then
    cmd=cat
 fi
 read -d"\000" script_input <<HERE
-# -*- coding: utf-8 -*-
+import sys
+import codecs
+sys.stdout = codecs.getwriter('utf8')(sys.stdout)
 $(grep "${grepargs[@]}" "$needle" <<<"$emoji_table")
 HERE
 $cmd <<<"$script_input"
