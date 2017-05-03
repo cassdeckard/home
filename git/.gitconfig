@@ -54,6 +54,8 @@
 	mmsg = !exec cat .git/MERGE_MSG
 	bc = difftool --dir-diff --no-symlink
  	push-to-testing = push -f origin head:testing
+	ci = commit
+	alias = config --get-regexp ^alias\\.
 [push]
 	default = simple
 [merge]
