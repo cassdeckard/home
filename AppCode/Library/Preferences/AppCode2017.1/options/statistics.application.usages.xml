@@ -1,0 +1,16 @@
+<application>
+  <component name="UsageTrigger">
+    <counts>
+      <entry feature="StripeButton[Version_Control].shown" count="1" />
+      <entry feature="execute.AppleRunConfiguration.Run" count="1" />
+      <entry feature="execute.OCUnitRunConfiguration.Run" count="7" />
+      <entry feature="execute.testingFramework.XCTest" count="4" />
+      <entry feature="ide.help.reference.dialogs.rundebug.OCUnitRunConfiguration" count="1" />
+      <entry feature="ide.help.top" count="1" />
+      <entry feature="ide.settings.Edit_Macros" count="1" />
+      <entry feature="ide.settings.Keymap" count="4" />
+      <entry feature="ideaapp.started" count="1" />
+      <entry feature="welcome.screen.OpenXcodeProject" count="1" />
+    </counts>
+  </component>
+</application>

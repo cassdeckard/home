@@ -1,0 +1,25 @@
+<application>
+  <component name="RecentDirectoryProjectsManager">
+    <option name="recentPaths">
+      <list>
+        <option value="$USER_HOME$/dev/PatientCentral" />
+      </list>
+    </option>
+    <option name="lastPath" value="$USER_HOME$/dev/PatientCentral" />
+    <option name="additionalInfo">
+      <map>
+        <entry key="$USER_HOME$/dev/PatientCentral">
+          <value>
+            <RecentProjectMetaInfo>
+              <option name="build" value="OC-171.4249.57" />
+              <option name="productionCode" value="OC" />
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="projectOpenTimestamp" value="1493988882768" />
+              <option name="buildTimestamp" value="1493727563552" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</application>

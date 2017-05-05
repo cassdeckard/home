@@ -1,0 +1,16 @@
+<application>
+  <component name="DimensionService">
+    <location key="WELCOME_SCREEN.0.0.2560.1440" x="1280" y="241" />
+    <location key="com.intellij.ide.util.TipDialog.0.0.2560.1440" x="797" y="457" />
+    <location key="#com.intellij.execution.impl.EditConfigurationsDialog.0.0.2560.1440" x="744" y="381" />
+    <location key="SettingsEditor.0.0.2560.1440" x="769" y="382" />
+    <location key="ProcessPopupWindow.0.0.2560.1440" x="1915" y="1274" />
+    <location key="#com.intellij.ide.actionMacro.EditMacrosDialog.0.0.2560.1440" x="1114" y="591" />
+    <size key="ProcessPopupWindow.0.0.2560.1440" width="291" height="110" />
+    <size key="#com.intellij.ide.actionMacro.EditMacrosDialog.0.0.2560.1440" width="646" height="258" />
+    <size key="GridCell.Tab.0.left.0.0.2560.1440" width="2560" height="435" />
+    <size key="GridCell.Tab.0.center.0.0.2560.1440" width="2560" height="435" />
+    <size key="GridCell.Tab.0.right.0.0.2560.1440" width="2560" height="435" />
+    <size key="GridCell.Tab.0.bottom.0.0.2560.1440" width="2560" height="435" />
+  </component>
+</application>
