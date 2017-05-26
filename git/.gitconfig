@@ -39,7 +39,6 @@
 	ds = diff --stat
 	dt = difftool -y
 	dtc = difftool -y --cached
-   go = "!sh -c 'git fetch; git checkout $1; git reset --hard origin/$1' -"
 	graph = log --graph --oneline --decorate
 	k = log --graph --oneline --decorate
 	ka = log --graph --oneline --decorate --all
