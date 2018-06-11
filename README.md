@@ -11,3 +11,7 @@ My personal dotfiles and scripts I put in my home directory
 i.e. To get dotfiles for `bash`, run `stow bash`
 
 For `bash` you also will want to add a line to your own `.bashrc` or `.bash_profile` to source `$HOME/.bashrc_custom`
+
+If you are me, and setting up a newly imaged Mac, you can just run
+`work-setup.sh`, which will set up Homebrew, git, bash-completion, and stow.
+
