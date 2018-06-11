@@ -24,6 +24,9 @@ front_path () {
 # strip /usr/local/sbin out of PATH
 export PATH=${PATH/:\/usr\/local\/sbin/}
 
+# BASH COMPLETION
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
 front_path $HOME/bin
 
 # default umask
@@ -115,7 +118,7 @@ psasciinema() {
    [ -n "$ASCIINEMA_REC" ] && echo -n "[REC]"
 }
 
-export GROUP_DEFAULT=1000
+export GROUP_DEFAULT=20
 #
 # prints current group on prompt, if it is not default
 #
@@ -252,8 +255,10 @@ if [ "$PS1" ]; then
 
   # Note: Do not export PS1.  It is just for this shell, not its children.
 
-  # also only set these if interactive shell
-  shopt -s cdspell              # sloppy dir spelling for cd
-  shopt -s dirspell 2>/dev/null # sloppy dir spelling for tab completion
-
+  # also only set these if interactive shell, and not Apple Terminal
+  if [ "$TERM_PROGRAM" != "Apple_Terminal" ]
+  then
+    shopt -s cdspell              # sloppy dir spelling for cd
+    shopt -s dirspell 2>/dev/null # sloppy dir spelling for tab completion
+  fi
 fi
