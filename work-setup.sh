@@ -33,3 +33,6 @@ setup_stow
 
 # Source bashrc_custom in profile
 echo '. "$HOME/.bashrc_custom"' >> ~/.bash_profile
+
+# Unset git osxkeychain credential helper
+git config --system --unset credential.helper
