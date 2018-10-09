@@ -1,5 +1,9 @@
 #!/bin/bash
 
+install_brew() {
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+}
+
 setup_brew() {
 	common_tools=(\
 		git \
@@ -7,10 +11,6 @@ setup_brew() {
 		stow \
 	)
 
-	# Install Homebrew
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-	# Install Common Tools
 	brew install ${common_tools[*]}
 }
 
@@ -26,6 +26,10 @@ setup_stow() {
 }
 
 if ! command -v brew > /dev/null 2>&1
+then
+   install_brew
+fi
+if ! command -v stow > /dev/null 2>&1
 then
    setup_brew
 fi
