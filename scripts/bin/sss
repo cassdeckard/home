@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+# Set Screen Saver
+
+WallpaperPath="/Users/deckardm/Google Drive/Wallpaper"
+
+defaults -currentHost write com.apple.ScreenSaver.iLifeSlideshows styleKey KenBurns
+defaults -currentHost write com.apple.ScreenSaverPhotoChooser SelectedFolderPath "$WallpaperPath"
+defaults -currentHost write com.apple.ScreenSaverPhotoChooser ShufflesPhotos 1
+
+defaults -currentHost read com.apple.Screensaver.iLifeSlideshows
+defaults -currentHost read com.apple.ScreenSaverPhotoChooser
+
+open -a ScreenSaverEngine
