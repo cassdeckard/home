@@ -17,3 +17,4 @@
 
 # also ignore this stuff
 *.sw?
+git/.config/configstore/nodemon.json
