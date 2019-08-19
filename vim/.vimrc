@@ -105,10 +105,14 @@ let g:CommandTBackspaceMap='<C-?>'
 " easymotion
 map <leader>f <Plug>(easymotion-prefix)
 
+" alternatives to Esc
+inoremap qq <C-c>
+vnoremap qq <C-c>
+cnoremap qq <C-c>
+
 " misc
 noremap <Space> <PageDown>
 noremap <C-?> <PageUp>
-inoremap qq <Esc>
 map <PageDown> :cn<CR>
 map <PageUp> :cp<CR>
 map <leader>\ :let @/ = ""<CR>
