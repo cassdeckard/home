@@ -25,7 +25,7 @@ front_path () {
 export PATH=${PATH/:\/usr\/local\/sbin/}
 
 # BASH COMPLETION
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+[ -f /opt/homebrew/etc/profile.d/bash_completion.sh ] && . /opt/homebrew/etc/profile.d/bash_completion.sh
 
 front_path $HOME/bin
 
@@ -204,14 +204,14 @@ yellow='\[\e[33m\]'
 white='\[\e[37m\]'
 
 # set prompt to magenta if in non-screen ssh
-pscore='\u@\h:\W \$'
+pscore='\u@\h:\W'"\n"'\$'
 if [ "$SSH_TTY" ] && [ ! "$STY" ]
 then
    pscolor=$magenta
    psalt=$red
 elif [ -n "$ASCIINEMA_REC" ]
 then
-   pscore='\W \$'
+   pscore='\W'"\n"'\$'
    pscolor=$green
    psalt=$red
 else

@@ -20,7 +20,6 @@
 	renames = copy
 	renameLimit = 20000
 	mnemonicprefix = true
-	wordregex = [^[:space:]]|([[:upper:][:digit:]]|UTF_8_GUARD)*([[:lower:][:digit:]]|UTF_8_GUARD)+
 	tool = bc3
 [pretty]
 	info = format:%C(yellow)%h%C(reset) %C(blue)%ad%C(reset) %C(green)%an%C(reset)%C(red)%d%C(reset) %s
@@ -55,6 +54,7 @@
  	push-to-testing = push -f origin head:testing
 	ci = commit
 	alias = config --get-regexp ^alias\\.
+	um = !git status | grep \"both modified:\" | sed -r 's/[[:space:]]+both modified:[[:space:]]+//' | xargs -o
 [push]
 	default = simple
 [merge]
@@ -69,3 +69,13 @@
 [user]
 	name = Cass Deckard
 	email = Cass.Deckard@alaskaair.com
+[core]
+	attributesFile = /Users/Cass.Deckard@alaskaair.com/.gitattributes
+	excludesfiles = /Users/Cass.Deckard@alaskaair.com/.gitignore
+	excludesfile = /Users/Cass.Deckard@alaskaair.com/.gitignore
+[remote "origin"]
+	prune = true
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true

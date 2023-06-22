@@ -4,22 +4,19 @@
 ###########
 
 # source .bashrc
-alias .bash="source ~/.bashrc"
+alias .bash='source ~/.bashrc'
 
 # general application aliases
 alias screen='screen -R'
+alias ll='ls -lG'
+alias rider='open /Applications/Rider.app'
+alias okta-terraform-test-env='source ~/bin/okta-terraform-test-env.sh'
 
-## ls options are hard
-LL="ls -l"
-if ls --color 2>/dev/null >&2
-then
-   LL="$LL --color=auto"
-   if ls --group-directories-first 2>/dev/null >&2
-   then
-      LL="$LL --group-directories-first"
-   fi
-elif ls -G 2>/dev/null >&2
-then
-   LL="$LL -G"
-fi
-alias ll="$LL"
+# azure cmd shell
+alias azure-sub-list='az account list -o table | grep AS'
+azure-sub-switch ()
+{
+    sub_id=$(azure-sub-list | grep -i "\.$1" | awk '{ print $3 }');
+    az account set --subscription "$sub_id";
+    az account show -o table
+}
