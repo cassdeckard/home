@@ -1,17 +1,1 @@
-# home
-
-My personal dotfiles and scripts I put in my home directory
-
-## usage
-
-* Check out this repo under your `$HOME` directory
-* `cd` into the checked out repo
-* For each program you want the dotfiles for, run the command `stow ${PROGRAM_NAME}`
-
-i.e. To get dotfiles for `bash`, run `stow bash`
-
-For `bash` you also will want to add a line to your own `.bashrc` or `.bash_profile` to source `$HOME/.bashrc_custom`
-
-If you are me, and setting up a newly imaged Mac, you can just run
-`work-setup.sh`, which will set up Homebrew, git, bash-completion, and stow.
-
+![Screenshot 2023-11-07 at 10 35 52 AM](https://github.com/cassdeckard/home/assets/3492280/bb2eaaf2-b7ce-4c20-8fa0-a27c2a518f65)
