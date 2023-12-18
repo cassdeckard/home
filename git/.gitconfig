@@ -57,6 +57,7 @@
 	um = !git status | grep \"both modified:\" | sed -r 's/[[:space:]]+both modified:[[:space:]]+//' | xargs -o
 [push]
 	default = simple
+	autoSetupRemote = true
 [merge]
 	conflictstyle = diff3
 	tool = bc3
