@@ -42,3 +42,13 @@ k8s-switch ()
    echo "Switching to k8s context $context"
    kubectl config use-context "$context"
 }
+
+timestamp() {
+   date +'%Y%m%d-%H%M%S'
+}
+prepend_timestamp() {
+  awk '{ cmd=sprintf("date +\"%%Y-%%m-%%d %%H:%%M:%%S\""); cmd | getline d; close(cmd); printf("[%s]\t%s\n", d, $0); }'
+}
+tee_output() {
+  tee $(basename $0 .sh)-$(date +"%Y%m%d-%H%M%S").out
+}

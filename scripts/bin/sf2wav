@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Shamelessly stolen from https://github.com/neonichu/Core-Audio-Samples/blob/master/Samples/extract-sf2.sh
+
+#
+## Convert a SoundFont + MIDI file to a CAF audio file.
+##
+## needs:
+## fluidsynth, sox (installable via brew)
+## afconvert (part of OS X)
+#
+
+if [ "$#" -lt 1 ]
+then
+  echo "Usage: `basename $0` [SoundFont]"
+  exit 1
+fi
+
+SOUNDFONT="$1"
+MIDI="$HOME/Library/Audio/Sounds/Banks/Middle C.mid"
+OUT="`basename \"$SOUNDFONT\" .sf2`.wav"
+TEMPRAW=$(mktemp /tmp/temp.XXXXXXXX.raw)
+TEMPWAV=$(mktemp /tmp/temp.XXXXXXXX.wav)
+
+# Play MIDI file using the given SoundFont
+fluidsynth -nli -F "$TEMPRAW" "$SOUNDFONT" "$MIDI" >/dev/null
+# Convert raw output to WAV
+##sox -r 44100 -2 -c 2 -s "$TEMPRAW" "$TEMPWAV"
+sox -r 44100 -e unsigned -c 2 -b 8 "$TEMPRAW" "$TEMPWAV"
+# Trim the WAV to one second
+sox "$TEMPWAV" "$OUT" trim 0.0 1.0
+# Convert the WAV to CAF
+#afconvert -f caff -d LEI16 "$OUT"
+# Cleanup
+rm -f "$TEMPRAW" "$TEMPWAV"

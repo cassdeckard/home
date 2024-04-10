@@ -1,0 +1,1 @@
+find . -type f -name "*.wav" -print0 | xargs -0 -I {} sh -c 'ffmpeg -i "{}" -af "loudnorm,volume=5dB" "new/$(basename "{}" .orig.wav).wav"'
