@@ -12,6 +12,12 @@ alias ll='ls -lG'
 alias rider='open /Applications/Rider.app'
 alias okta-terraform-test-env='source ~/bin/okta-terraform-test-env.sh'
 
+# xsel -> pbcopy/pbpaste
+if which xsel 1>/dev/null 2>&1; then
+   alias pbcopy='xsel -bi'
+   alias pbpaste='xsel -bo'
+fi
+
 # azure cmd shell
 alias azure-list='az account list -o table | grep AS'
 azure-switch ()

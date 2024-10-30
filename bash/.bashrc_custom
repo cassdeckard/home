@@ -125,7 +125,7 @@ psasciinema() {
    [ -n "$ASCIINEMA_REC" ] && echo -n "[REC]"
 }
 
-export GROUP_DEFAULT=20
+export GROUP_DEFAULT=1000
 #
 # prints current group on prompt, if it is not default
 #
@@ -204,22 +204,66 @@ green='\[\e[32m\]'
 magenta='\[\e[35m\]'
 yellow='\[\e[33m\]'
 white='\[\e[37m\]'
+grey='\[\e[90m\]'
 
 # set prompt to magenta if in non-screen ssh
-pscore='\u@\h:\W'"\n"'\$'
+pscore='\u@\h:\W'
 if [ "$SSH_TTY" ] && [ ! "$STY" ]
 then
    pscolor=$magenta
    psalt=$red
 elif [ -n "$ASCIINEMA_REC" ]
 then
-   pscore='\W'"\n"'\$'
+   pscore='\W'
    pscolor=$green
    psalt=$red
 else
    pscolor=$red
    psalt=$magenta
 fi
+
+#
+# prints cpu stats
+#
+cpuclock() {
+   vcgencmd measure_clock arm | awk 'BEGIN {FS="="}; {printf("%.1fGHz", $2 / 1000000000)}'
+}
+cputemp() {
+   vcgencmd measure_temp | cut -d= -f2
+}
+dockerstats() {
+   sudo /usr/bin/docker compose ls | tail -n +2 | awk '{print $1}' | sed -e 's/^/[/' -e 's/$/]/' | tr -d '\n'
+}
+dockerstatsc() {
+   green="${green//\\\[/}"
+   green="${green//\\\]/}"
+   green="${green//\e/\033}"
+   pscolor="${pscolor//\\\[/}"
+   pscolor="${pscolor//\\\]/}"
+   pscolor="${pscolor//\e/\033}"
+   mapfile -t apps < <(sudo /usr/bin/docker compose ls | tail -n +2 | awk '{print $1}')
+   for app in ${apps[@]}; do
+      echo -ne "[$green$app$pscolor]"
+   done
+}
+icanhazip() {
+   white="${white//\\\[/}"
+   white="${white//\\\]/}"
+   white="${white//\e/\033}"
+   pscolor="${pscolor//\\\[/}"
+   pscolor="${pscolor//\\\]/}"
+   pscolor="${pscolor//\e/\033}"
+   echo -ne "[$white$(curl icanhazip.com 2>/dev/null)$pscolor]"
+}
+rightpad1() {
+   printf "%*s" $((COLUMNS - $(dockerstats | wc -c) - 1 )) ""
+}
+rightpad2() {
+   printf "%*s" $((COLUMNS - $(cpuclock | wc -c) - $(cputemp | wc -c) - 4 )) ""
+}
+hr() {
+   printf "%*s" $COLUMNS "" | tr ' ' '-'
+}
 
 # if this is an interactive shell, set PS1 to something decent
 if [ "$PS1" ]; then
@@ -233,8 +277,21 @@ if [ "$PS1" ]; then
    # my default red prompt
    PS1=
    PS1="$PS1\n"                                  # newline
+   PS1="$PS1$grey"'`hr`'                         # line
    PS1="$PS1$pscolor"                            # pscolor
-   PS1="$PS1"'[\j]'                              # jobs
+   PS1="$PS1\n"                                  # newline
+   PS1="$PS1"'`rightpad1`'                       # padding to right justify
+   PS1="$PS1"'`dockerstatsc`'                    # dockerstats
+   PS1="$PS1\r"                                  # carriage return
+   PS1="$PS1"'`icanhazip`'                       # ip address
+   PS1="$PS1\n"                                  # newline
+   if which vcgencmd 1>/dev/null 2>&1; then
+      PS1="$PS1"'`rightpad2`'                           # padding to right justify
+      PS1="$PS1$pscolor[$white"'`cpuclock`'"$pscolor]"  # clock
+      PS1="$PS1$pscolor[$white"'`cputemp`'"$pscolor]"   # temp
+      PS1="$PS1\r"                                     # carriage return
+   fi
+   PS1="$PS1[$white"'\j'"$pscolor]"              # jobs
    PS1="$PS1"'[\[`smileyc`\]'                    # [ GREEN | GREY
    PS1="$PS1"'`smiley`'                          # :) | :(
    PS1="$PS1$pscolor"']'                         # pscolor ]
@@ -244,7 +301,9 @@ if [ "$PS1" ]; then
    PS1="$PS1"'`psumask`'                         # [umask] (if not default)
    PS1="$PS1$pscolor"                            # pscolor
    PS1="$PS1$yellow"'$(git_ps1_wrap)'"$pscolor"  # [GIT_BRANCH]
-   PS1="$PS1$pscore"                             # user@host:dir $
+   PS1="$PS1$pscore"                             # user@host:dir
+   PS1="$PS1\n"                                  # newline
+   PS1="$PS1"'\$'                                # $
    PS1="$PS1"'\[\e[0m\] '                        # GREY
 
   case $TERM in
