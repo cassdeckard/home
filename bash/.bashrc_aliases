@@ -52,3 +52,7 @@ prepend_timestamp() {
 tee_output() {
   tee $(basename $0 .sh)-$(date +"%Y%m%d-%H%M%S").out
 }
+base64_to_guid() {
+   base64 -d | xxd -ps | sed -e 's/\(........\)\(....\)\(....\)\(....\)\(............\)/\1-\2-\3-\4-\5/'
+}
+

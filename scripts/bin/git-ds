@@ -1,0 +1,7 @@
+#!/bin/bash
+
+git-ds() {
+	git diff --stat=$(( $COLUMNS - 1 )) --stat-graph-width=$(( $COLUMNS / 5 )) --relative "$@"
+}
+
+git-ds "$@"
