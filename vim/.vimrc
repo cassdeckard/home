@@ -116,6 +116,7 @@ noremap <C-?> <PageUp>
 map <PageDown> :cn<CR>
 map <PageUp> :cp<CR>
 map <leader>\ :let @/ = ""<CR>
+map <leader>\\ :let @/ = '^[=><\|]\{7\}.*$'<CR>
 map <leader>w :w<CR>
 map <leader>. :source ~/.vimrc<CR>
 map <leader>< :set matchpairs +=<:><CR>

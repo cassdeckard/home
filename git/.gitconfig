@@ -20,23 +20,23 @@
 	renames = copy
 	renameLimit = 20000
 	mnemonicprefix = true
-	wordregex = [^[:space:]]|([[:upper:][:digit:]]|UTF_8_GUARD)*([[:lower:][:digit:]]|UTF_8_GUARD)+
 	tool = bc3
+	statGraphWidth = 999
 [pretty]
 	info = format:%C(yellow)%h%C(reset) %C(blue)%ad%C(reset) %C(green)%an%C(reset)%C(red)%d%C(reset) %s
 [alias]
 	ap = add -p
 	br = branch
-	brcl = !git branch | grep -v \\* | xargs git branch -d
-	brcld = !git branch | grep -v \\* | xargs git branch -D
+	brcl = !git branch | grep -v \\*\\\\\\|\\+ | xargs git branch -d
+	brcld = !git branch | grep -v \\*\\\\\\|\\+ | xargs git branch -D
+	brclgone = !git branch -v | awk -F' ' '{print $3, \"\\t\", $1}' | grep '^\\[gone\\]' | awk '{print $2}' | xargs git br -d
+	brcldgone = !git branch -v | awk -F' ' '{print $3, \"\\t\", $1}' | grep '^\\[gone\\]' | awk '{print $2}' | xargs git br -D
 	co = checkout
-	com = !sh -c 'git checkout feature/MOBILE-$1' -
 	cv = commit -v
 	d = diff
 	dc = diff --cached
 	dccw = diff --cached --color-words
 	dcw = diff --color-words
-	ds = diff --stat
 	dt = difftool -y
 	dtc = difftool -y --cached
 	graph = log --graph --oneline --decorate
@@ -44,10 +44,10 @@
 	ka = log --graph --oneline --decorate --all
 	up = log --graph --oneline --decorate @{u}~..HEAD
 	st = status
+	stp = status --porcelain
 	pr = log --oneline --abbrev=10 --reverse
 	mnff = merge --no-ff
 	pushit = push -u origin HEAD
-	ds = diff --stat
 	pu = log --graph --oneline --decorate HEAD~..@{u}
 	msg = !exec cat .git/COMMIT_EDITMSG
 	mmsg = !exec cat .git/MERGE_MSG
@@ -55,8 +55,14 @@
  	push-to-testing = push -f origin head:testing
 	ci = commit
 	alias = config --get-regexp ^alias\\.
+	um = !git status | grep \"both modified:\" | sed -r 's/[[:space:]]+both modified:[[:space:]]+//' | xargs -o
+	diffcw = !LANG=C LC_CTYPE=C git diff --color-words
+	diffw = !LANG=C LC_CTYPE=C git diff --word-diff
+	xmod = !git status --porcelain | grep '^ M' | cut -d' ' -f3- | tr -d '\\\"' | tr '\\n' '\\0' | xargs -0 -n1
+	xidx = !git status --porcelain | grep '^M' | cut -d' ' -f3- | tr -d '\\\"' | tr '\\n' '\\0' | xargs -0 -n1
 [push]
 	default = simple
+	autoSetupRemote = true
 [merge]
 	conflictstyle = diff3
 	tool = bc3
@@ -68,4 +74,13 @@
 	trustExitCode = true
 [user]
 	name = Cass Deckard
-	email = Cass.Deckard@alaskaair.com
+	email = cassdeckard@gmail.com
+[core]
+	attributesFile = ~/.gitattributes
+	excludesfile = ~/.gitignore
+[remote "origin"]
+	prune = true
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true

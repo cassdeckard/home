@@ -6,6 +6,8 @@
 export PAGER=less
 export EDITOR=vim
 export LC_COLLATE="C" # changes way files are ordered
+export ROWS
+export COLUMNS
 
 # Add entries to path, only if they don't exist yet
 _back_path () {
@@ -15,10 +17,10 @@ _front_path () {
    export PATH=$1:$PATH
 }
 back_path () {
-   [ -z $(echo $PATH | grep "^$1:\|:$1:\|:$1\$") ] && _back_path "$1"
+   [[ -z $(echo $PATH | grep "^$1:\|:$1:\|:$1\$") ]] && _back_path "$1"
 }
 front_path () {
-   [ -z $(echo $PATH | grep "^$1:\|:$1:\|:$1\$") ] && _front_path "$1"
+   [[ -z $(echo $PATH | grep "^$1:\|:$1:\|:$1\$") ]] && _front_path "$1"
 }
 
 # strip /usr/local/sbin out of PATH
@@ -28,6 +30,9 @@ export PATH=${PATH/:\/usr\/local\/sbin/}
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 front_path $HOME/bin
+if which pyenv >/dev/null 2>&1; then
+   front_path $(pyenv root)/shims
+fi
 
 # default umask
 export UMASK_DEFAULT=0022
@@ -204,14 +209,14 @@ yellow='\[\e[33m\]'
 white='\[\e[37m\]'
 
 # set prompt to magenta if in non-screen ssh
-pscore='\u@\h:\W \$'
+pscore='\u@\h:\W'"\n"'\$'
 if [ "$SSH_TTY" ] && [ ! "$STY" ]
 then
    pscolor=$magenta
    psalt=$red
 elif [ -n "$ASCIINEMA_REC" ]
 then
-   pscore='\W \$'
+   pscore='\W'"\n"'\$'
    pscolor=$green
    psalt=$red
 else

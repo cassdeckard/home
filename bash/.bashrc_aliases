@@ -4,7 +4,7 @@
 ###########
 
 # source .bashrc
-alias .bash="source ~/.bashrc"
+alias .bash='source ~/.bashrc'
 
 # general application aliases
 alias screen='screen -R'
@@ -23,3 +23,48 @@ then
    LL="$LL -G"
 fi
 alias ll="$LL"
+
+# azure cmd shell
+alias azure-list='az account list -o table | grep AS'
+azure-switch ()
+{
+   sub_id=$(azure-list | grep -i "\.$1" | awk '{ print $3 }')
+   az account set --subscription "$sub_id"
+   az account show -o table
+}
+alias k8s-list='kubectl config get-contexts'
+k8s-switch ()
+{
+   env=$1; shift
+   loc=$1; shift
+   if [[ -z "$loc" ]]; then loc=westus2; fi
+   searchstr="$env-aks-.*$loc"
+   context=$(k8s-list | grep -im1 $searchstr | awk '{ print $1 }')
+   if [[ -z "$context" ]]
+   then
+      echo "No matching context found for environment '$env' and region '.*$loc.*'"
+      return 1
+   fi
+   if [[ "*" = "$context" ]]
+   then
+      currentContext=$(k8s-list | grep '^ *\*' | awk '{ print $2 }')
+      echo "You are already on context $currentContext"
+      return 0
+   fi
+   echo "Switching to k8s context $context"
+   kubectl config use-context "$context"
+}
+
+# misc utilities
+timestamp() {
+   date +'%Y%m%d-%H%M%S'
+}
+prepend_timestamp() {
+  awk '{ cmd=sprintf("date +\"%%Y-%%m-%%d %%H:%%M:%%S\""); cmd | getline d; close(cmd); printf("[%s]\t%s\n", d, $0); }'
+}
+tee_output() {
+  tee $(basename $0 .sh)-$(date +"%Y%m%d-%H%M%S").out
+}
+base64_to_guid() {
+   base64 -d | xxd -ps | sed -e 's/\(........\)\(....\)\(....\)\(....\)\(............\)/\1-\2-\3-\4-\5/'
+}
