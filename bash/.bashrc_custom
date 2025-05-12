@@ -209,14 +209,14 @@ yellow='\[\e[33m\]'
 white='\[\e[37m\]'
 
 # set prompt to magenta if in non-screen ssh
-pscore='\u@\h:\W \$'
+pscore='\u@\h:\W'$'\n'' \$'
 if [ "$SSH_TTY" ] && [ ! "$STY" ]
 then
    pscolor=$magenta
    psalt=$red
 elif [ -n "$ASCIINEMA_REC" ]
 then
-   pscore='\W \$'
+   pscore='\W'$'\n'' \$'
    pscolor=$green
    psalt=$red
 else
