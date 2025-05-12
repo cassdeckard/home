@@ -17,10 +17,10 @@ _front_path () {
    export PATH=$1:$PATH
 }
 back_path () {
-   [[ -z $(echo $PATH | grep "^$1:\|:$1:\|:$1\$") ]] && _back_path "$1"
+   grep -v '^'"$1"'$' <<<"$(tr ':' '\n' <<<"$PATH")" >/dev/null && _back_path "$1"
 }
 front_path () {
-   [[ -z $(echo $PATH | grep "^$1:\|:$1:\|:$1\$") ]] && _front_path "$1"
+   grep -v '^'"$1"'$' <<<"$(tr ':' '\n' <<<"$PATH")" >/dev/null && _front_path "$1"
 }
 
 # strip /usr/local/sbin out of PATH
@@ -29,7 +29,7 @@ export PATH=${PATH/:\/usr\/local\/sbin/}
 # BASH COMPLETION
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
-front_path $HOME/bin
+front_path "$HOME/bin"
 if which pyenv >/dev/null 2>&1; then
    front_path $(pyenv root)/shims
 fi
